@@ -1,9 +1,18 @@
 import React, { Component } from "react";
+import Feed from "./feed/feed";
+import TrendingTab from "./trending-tab/trendingTab";
 
 class Panel extends Component {
   state = {};
   render() {
-    return <React.Fragment>Panel</React.Fragment>;
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <Feed />
+          <TrendingTab />
+        </div>
+      </div>
+    );
   }
 }
 

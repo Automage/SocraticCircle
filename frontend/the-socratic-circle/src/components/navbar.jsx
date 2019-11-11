@@ -4,7 +4,7 @@ class Navbar extends Component {
   state = {};
   render() {
     return (
-      <nav className="navbar navbar-light bg-light">
+      <nav className="navbar fixed-top navbar-light bg-light">
         <a class="navbar-brand mb-0 h1" href="#">
           The Socratic Circle
         </a>
