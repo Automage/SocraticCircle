@@ -6,7 +6,7 @@ class Panel extends Component {
   state = {};
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container-fluid panel">
         <div className="row">
           <Feed />
           <TrendingTab />
