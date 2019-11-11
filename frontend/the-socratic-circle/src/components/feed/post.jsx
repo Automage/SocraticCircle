@@ -12,7 +12,7 @@ class Post extends Component {
           </h6>
           <p className="card-text">{this.props.data.body}</p>
           <div class="row">
-            <div class="col-sm circle-container">
+            <div class="col-sm-9 circle-container">
               <a href="#" class="badge badge-success circle">
                 Ethics
               </a>
@@ -29,7 +29,7 @@ class Post extends Component {
                 Mortality
               </a>
             </div>
-            <div className="col-sm">
+            <div className="col-sm-3">
               <div className="post-points float-right">
                 {this.props.data.points}
               </div>

@@ -7,7 +7,26 @@
 }
 
 .navbar-font {
-  color: #801e0f;
+  color: #801e0f !important;
+}
+
+#navbar-title:hover {
+  color: orange !important;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:visited {
+  border-color: #ad2611 !important;
+  border-radius: 8px;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:visited {
+  background-color: #ad2611 !important;
+  color: white !important;
 }
 
 .card {
@@ -33,9 +52,7 @@
   text-align: center;
   font-size: 11pt;
 
-  position: absolute;
-  bottom: 0;
-  right: 15px;
+  margin-top: 10px;
 }
 
 .circle {
@@ -44,4 +61,23 @@
 
 .circle-container {
   padding-top: 6px;
+}
+
+@media (min-width: 560px) {
+  .post-points {
+    color: #ad2611;
+    padding: 4px;
+    font-weight: bold;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 2px;
+    min-width: 5ch;
+    display: inline-block;
+    text-align: center;
+    font-size: 11pt;
+
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+  }
 }

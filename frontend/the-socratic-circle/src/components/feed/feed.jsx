@@ -63,8 +63,9 @@ class Feed extends Component {
     ]
   };
   render() {
+    //   TODO: when re-adding TrendingTab, use colo-lg-9
     return (
-      <div className="col-lg-9">
+      <div className="col-lg-12">
         {this.state.posts.map(post => (
           <Post data={post}></Post>
         ))}

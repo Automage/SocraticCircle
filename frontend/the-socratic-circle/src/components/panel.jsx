@@ -9,7 +9,7 @@ class Panel extends Component {
       <div className="container-fluid panel">
         <div className="row">
           <Feed />
-          <TrendingTab />
+          {/* <TrendingTab /> */}
         </div>
       </div>
     );
