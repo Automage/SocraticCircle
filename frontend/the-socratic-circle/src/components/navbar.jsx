@@ -1,17 +1,20 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
   state = {};
   render() {
     return (
       <nav className="navbar navbar-expand-md fixed-top navbar-light view-component">
-        <a
-          className="navbar-brand mb-0 navbar-font h1"
-          id="navbar-title"
-          href="#"
-        >
-          The Socratic Circle
-        </a>
+        <Link to="/#">
+          <p
+            className="navbar-brand mb-0 navbar-font h1"
+            id="navbar-title"
+            // href="#"
+          >
+            The Socratic Circle
+          </p>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -29,14 +32,22 @@ class Navbar extends Component {
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0" />
 
           <form className="form-inline my-2 my-lg-0">
+            <Link to="/login">
+              <button
+                className="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
+                type="submit"
+              >
+                Login
+              </button>
+            </Link>
             <button
-              class="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
+              className="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
               type="submit"
             >
               New Post
             </button>
             <button
-              class="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
+              className="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
               type="submit"
             >
               Search
