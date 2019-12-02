@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const apiRouter = require("./routes/api");
 
@@ -14,8 +15,9 @@ db.on("error", error => console.error(error));
 db.once("open", () => console.log("connected to database"));
 
 // Routing
-app.use("/api", apiRouter);
+app.use(bodyParser.json());
 app.use("/", express.static("../frontend/the-socratic-circle/build"));
+app.use("/api", apiRouter);
 
 app.listen(8000, () => console.log("Server started on port 8000..."));
 

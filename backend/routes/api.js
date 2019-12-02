@@ -34,15 +34,46 @@ router.get("/posts/:id", (req, res) => {
 });
 
 router.post("/posts/", (req, res) => {
-  res.send("Post post ");
+  // Date is added automatically
+  Post.insertMany({
+    title: req.body.title,
+    userID: req.body.userID,
+    body: req.body.body,
+    points: req.body.points
+  })
+    .then(post => console.log("inserted: " + post))
+    .catch(e => console.log(e));
+  res.send("Success");
 });
 
 router.put("/posts/:id", (req, res) => {
-  res.send("put post " + req.params.id);
+  let fail = false;
+  Post.findById(req.params.id, (err, post) => {
+    if (err) console.log(err);
+    if (!post) {
+      res.sendStatus(404);
+    } else {
+      Post.updateOne({ _id: req.params.id }, req.body, (err, post) => {
+        if (err) {
+          console.log(err);
+          res.send("Failure");
+        }
+      });
+    }
+    res.send("Success");
+  });
 });
 
 router.delete("/posts/:id", (req, res) => {
-  res.send("Delete post " + req.params.id);
+  Post.findByIdAndDelete(req.params.id, (err, post) => {
+    if (err) {
+      res.send("Failure");
+    } else if (!post) {
+      res.sendStatus(404);
+    } else {
+      res.send("Success");
+    }
+  });
 });
 
 // User data routes
@@ -67,15 +98,46 @@ router.get("/users/:id", (req, res) => {
 });
 
 router.post("/users/", (req, res) => {
-  res.send("Post user ");
+  console.log(req.body);
+  User.insertMany({
+    name: req.body.name,
+    email: req.body.email,
+    password: req.body.password,
+    points: 0
+  })
+    .then(user => console.log("inserted: " + user))
+    .catch(e => console.log(e));
+  res.send("Success");
 });
 
 router.put("/users/:id", (req, res) => {
-  res.send("put user " + req.params.id);
+  let fail = false;
+  User.findById(req.params.id, (err, user) => {
+    if (err) console.log(err);
+    if (!user) {
+      res.sendStatus(404);
+    } else {
+      User.updateOne({ _id: req.params.id }, req.body, (err, user) => {
+        if (err) {
+          console.log(err);
+          res.send("Failure");
+        }
+      });
+    }
+    res.send("Success");
+  });
 });
 
 router.delete("/users/:id", (req, res) => {
-  res.send("Delete user " + req.params.id);
+  User.findByIdAndDelete(req.params.id, (err, user) => {
+    if (err) {
+      res.send("Failure");
+    } else if (!user) {
+      res.sendStatus(404);
+    } else {
+      res.send("Success");
+    }
+  });
 });
 
 module.exports = router;

@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
-  author: {
+  userID: {
     type: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   },
   body: {
@@ -21,7 +21,7 @@ const postSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true
+    default: Date.now()
   }
 });
 
