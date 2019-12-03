@@ -1,9 +1,55 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 class Navbar extends Component {
-  state = {};
+  state = {
+    loading: true,
+    user: null,
+    loggedIn: false
+  };
+
+  async componentDidMount() {
+    const token = localStorage.getItem("jwtToken");
+    if (!token) {
+      this.setState({
+        loading: false,
+        loggedIn: false
+      });
+    } else if (this.state.loading) {
+      try {
+        this.setState({
+          loading: false,
+          loggedIn: true,
+          user: jwt_decode(token, { header: true })
+        });
+      } catch (error) {
+        console.log(error);
+        this.setState({
+          loading: false,
+          loggedIn: true,
+          user: jwt_decode(token, { header: true })
+        });
+      }
+    }
+  }
+
+  logout = e => {
+    if (this.state.loggedIn) {
+      e.preventDefault();
+      localStorage.removeItem("jwtToken");
+      this.setState({ loggedIn: false });
+    }
+  };
+
   render() {
+    let loginMsg = "Login";
+    let loginLink = "/login";
+    if (this.state.loggedIn) {
+      loginMsg = "Logout";
+      loginLink = "/";
+    }
+
     return (
       <nav className="navbar navbar-expand-md fixed-top navbar-light view-component">
         <Link to="/#">
@@ -32,12 +78,16 @@ class Navbar extends Component {
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0" />
 
           <form className="form-inline my-2 my-lg-0">
-            <Link to="/login">
+            {this.state.loggedIn && (
+              <label className="h6 navbar-font">{this.state.user}</label>
+            )}
+            <Link to={loginLink}>
               <button
                 className="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
                 type="submit"
+                onClick={this.logout}
               >
-                Login
+                {loginMsg}
               </button>
             </Link>
             <button
