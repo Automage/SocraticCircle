@@ -13,7 +13,8 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    name: true
+    required: true,
+    select: false
   },
   points: {
     type: Number,

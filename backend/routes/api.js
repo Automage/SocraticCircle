@@ -16,43 +16,43 @@ router.get("/login", (req, res) => {
 
 // Get all posts
 router.get("/posts/", (req, res) => {
-  Post.find({}, (err, posts) => {
+  Post.find({}, err => {
     if (err) console.log(err);
-    res.send(posts);
-  });
+  })
+    .populate("user")
+    .exec((err, post) => {
+      if (err) res.send("Failure");
+      else res.send(post);
+    });
 });
 
 router.get("/posts/:id", (req, res) => {
   Post.findOne({ _id: req.params.id }, (err, post) => {
-    if (err) {
-      console.log(err);
-      res.send("Failure");
-    }
+    if (err) res.send("Failure");
     if (!post) res.sendStatus(404);
+    else res.send(post);
   })
-    .populate({ path: "user", model: "User" })
+    .populate("user")
     .exec((err, post) => {
-      if (err) {
-        res.send("Failure");
-      } else {
-        res.send(post);
-        console.log(post.user);
-      }
+      if (err) res.send("Failure");
+      else res.send(post);
     });
 });
 
 router.post("/posts/", (req, res) => {
   // Date is added automatically
-  console.log(req.body);
-  Post.insertMany({
-    title: req.body.title,
-    user: req.body.user,
-    body: req.body.body,
-    points: req.body.points
-  })
-    .then(post => console.log("inserted: " + post))
-    .catch(e => console.log(e));
-  res.send("Success");
+  Post.insertMany(
+    {
+      title: req.body.title,
+      user: req.body.user,
+      body: req.body.body,
+      points: req.body.points
+    },
+    err => {
+      if (err) res.send("Failure");
+      else res.send("Success");
+    }
+  );
 });
 
 router.put("/posts/:id", (req, res) => {
