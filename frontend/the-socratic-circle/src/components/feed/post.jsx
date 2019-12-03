@@ -12,7 +12,6 @@ class Post extends Component {
       RELIGION: ["Religion", "badge-info"],
       MORTALITY: ["Mortality", "badge-dark"]
     };
-    console.log(this.props.data);
   }
 
   getCircleElements = circles => {

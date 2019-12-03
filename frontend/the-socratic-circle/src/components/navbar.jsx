@@ -11,11 +11,13 @@ class Navbar extends Component {
 
   async componentDidMount() {
     const token = localStorage.getItem("jwtToken");
+    console.log("TOKEN: " + token);
     if (!token) {
       this.setState({
         loading: false,
         loggedIn: false
       });
+      return;
     } else if (this.state.loading) {
       try {
         this.setState({
@@ -43,6 +45,7 @@ class Navbar extends Component {
   };
 
   render() {
+    console.log(this.state);
     let loginMsg = "Login";
     let loginLink = "/login";
     if (this.state.loggedIn) {

@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
           // Calling .save inserts the mongo object into the collection
           newUser
             .save()
-            .then(user => res.send(user)) // .save is a promise, send the response when promise is executed
+            .then(user => res.send("Success")) // .save is a promise, send the response when promise is executed
             .catch(err => res.send(err));
         });
       });
@@ -42,46 +42,66 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+  console.log("RECEIVED POST /LOGIN");
+  console.log(req.body);
   const email = req.body.email;
   const password = req.body.password;
 
   // Find user by email
-  User.findOne({ email }).then(user => {
-    // Check if user exists
-    if (!user) {
-      res.status(404).json({ emailnotfound: "Email not found" });
-    }
-
-    // Check password
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        // User matched
-        // Create JWT Payload
-        const payload = {
-          id: user.id,
-          name: user.name,
-          email: user.email
-        };
-
-        // Sign token
-        jwt.sign(
-          payload,
-          process.env.SECRET,
-          {
-            expiresIn: 31556926 // 1 year in seconds
-          },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: token
-            });
-          }
-        );
-      } else {
-        res.status(400).json({ passwordincorrect: "Password incorrect" });
+  User.findOne({ email })
+    .select("+password")
+    .exec()
+    .then(user => {
+      // Check if user exists
+      console.log(user);
+      if (!user) {
+        res.status(404).json({ emailnotfound: "Email not found" });
       }
+
+      // Check password
+      bcrypt
+        .compare(password, user.password, err => {
+          console.log(password + " " + user.password);
+          if (err) res.send("Error");
+        })
+        .then(isMatch => {
+          console.log(isMatch);
+          if (isMatch) {
+            console.log("ISMATCH");
+            // User matched
+            // Create JWT Payload
+            const payload = {
+              id: user.id,
+              name: user.name,
+              email: user.email
+            };
+
+            // Sign token
+            jwt.sign(
+              payload,
+              process.env.SECRET,
+              {
+                expiresIn: 31556926 // 1 year in seconds
+              },
+              (err, token) => {
+                res.json({
+                  success: true,
+                  token: token
+                });
+              }
+            );
+          } else {
+            res.status(400).json({ passwordincorrect: "Password incorrect" });
+          }
+        })
+        .catch(err => {
+          res.send("Error");
+        });
+    })
+    .catch(err => {
+      console.log(err);
+      res.send("Error");
     });
-  });
 });
 
 //-----------------------------------------------------------------------------------------

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 class Register extends Component {
   state = {
-    username: "",
+    name: "",
     email: "",
     password: "",
     password2: "",
@@ -41,11 +41,11 @@ class Register extends Component {
         email: this.state.email,
         password: this.state.password
       };
-
+      console.log(userData);
       try {
         const res = await axios.post("/api/register", userData);
 
-        this.setState({ loading: false, msg: "Registration Successful." });
+        this.setState({ loading: false, msg: "Success" });
       } catch (err) {
         console.log(err);
         this.setState({ loading: false, msg: "Registration Failed." });
@@ -54,6 +54,9 @@ class Register extends Component {
   };
 
   render() {
+    if (this.state.msg == "Success") {
+      return <Redirect to="/login" />;
+    }
     return (
       <div className="container-fluid form-container">
         <div className="card form view-component">
@@ -64,10 +67,10 @@ class Register extends Component {
               <input
                 type="text"
                 className="form-control"
-                id="username"
+                id="name"
                 placeholder="Username"
-                value={this.state.username}
-                onChange={this.handleChange("username")}
+                value={this.state.name}
+                onChange={this.handleChange("name")}
               />
             </div>
             <div className="form-group">
