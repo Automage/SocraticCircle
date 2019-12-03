@@ -112,3 +112,4 @@ sketch
 # End of https://www.gitignore.io/api/node,react
 
 env
+.vscode
