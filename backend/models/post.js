@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  circles: {
+    type: String,
+    enum: ["ETHICS", "SOPHISM", "METAPHYSICS", "RELIGION", "MORTALITY"]
+  },
   points: {
     type: Number,
     default: 0,

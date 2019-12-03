@@ -46,6 +46,7 @@ router.post("/posts/", (req, res) => {
       title: req.body.title,
       user: req.body.user,
       body: req.body.body,
+      circles: req.body.circles,
       points: req.body.points
     },
     err => {
