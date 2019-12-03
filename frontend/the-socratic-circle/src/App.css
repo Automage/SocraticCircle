@@ -57,6 +57,11 @@
   color: #801e0f;
 }
 
+.form-alert {
+  margin-top: 15px;
+  margin-bottom: -5px;
+}
+
 .post {
   border-radius: 10px;
 }
