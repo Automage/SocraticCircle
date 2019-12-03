@@ -1,48 +1,54 @@
 import React, { Component } from "react";
 
 class Post extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
 
-  circlesData = {
-    ETHICS: ["Ethics", "badge-success"],
-    SOPHISM: ["Sophism", "badge-danger"],
-    METAPHYSICS: ["Metaphysics", "badge-warning"],
-    RELIGION: ["Religion", "badge-info"],
-    MORTALITY: ["Mortality", "badge-dark"]
-  };
+    this.circlesData = {
+      ETHICS: ["Ethics", "badge-success"],
+      SOPHISM: ["Sophism", "badge-danger"],
+      METAPHYSICS: ["Metaphysics", "badge-warning"],
+      RELIGION: ["Religion", "badge-info"],
+      MORTALITY: ["Mortality", "badge-dark"]
+    };
+    console.log(this.props.data);
+  }
 
-  getCircleElements = function(circles) {
-    circlesElements = [];
-    tempStyle = "badge circle ";
+  getCircleElements = circles => {
+    let circlesElements = [];
+    let commonStyle = "badge circle ";
 
-    for (let key in circlesData) {
-      if (circlesData.hasOwnProperty(key)) {
+    for (let key in this.circlesData) {
+      if (this.circlesData.hasOwnProperty(key)) {
         if (circles.includes(key)) {
-          tempStyle = tempStyle + circlesData[key][1];
+          let tempStyle = commonStyle + this.circlesData[key][1];
           circlesElements.push({
             style: tempStyle,
-            tag: circlesData[key][0]
+            tag: this.circlesData[key][0]
           });
         }
       }
     }
+
+    return circlesElements;
   };
 
   render() {
-    circlesElements = this.getCircleElements(this.props.post.circles);
+    let circlesElements = this.getCircleElements(this.props.data.circles);
 
     return (
       <div className="card post view-component">
         <div className="card-body">
           <h5 className="card-title">{this.props.data.title}</h5>
           <h6 className="card-subtitle mb-2 post-subtitle">
-            {this.props.data.author}
+            {this.props.data.user}
           </h6>
           <p className="card-text">{this.props.data.body}</p>
-          <div class="row">
-            <div class="col-sm-9 circle-container">
-              {circlesElements.map(circle => (
-                <a href="#" className={circle.style}>
+          <div className="row">
+            <div className="col-sm-9 circle-container">
+              {circlesElements.map((circle, i) => (
+                <a href="#" className={circle.style} key={i}>
                   {circle.tag}
                 </a>
               ))}
