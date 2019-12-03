@@ -24,41 +24,6 @@ class Feed extends Component {
         body:
           "I'll just nod, I've never been so good at shaking hands\n I live on the frozen surface of a fireball\n Where cities come together to hate each other in the name of sport\nAmerica, nothing is ever just anything\nI looked up to you, but you thought I would look the other way\nAnd you hear what you want to hear\nAnd they take what they want to take\nDon't be sad, won't ever happen like this anymore",
         points: 214
-      },
-      {
-        title: "Socratic views on the meaning of life",
-        author: "Pranav Nair",
-        body:
-          "I'll just nod, I've never been so good at shaking hands\n I live on the frozen surface of a fireball\n Where cities come together to hate each other in the name of sport\nAmerica, nothing is ever just anything\nI looked up to you, but you thought I would look the other way\nAnd you hear what you want to hear\nAnd they take what they want to take\nDon't be sad, won't ever happen like this anymore",
-        points: 24
-      },
-      {
-        title: "Socratic views on the meaning of life",
-        author: "Pranav Nair",
-        body:
-          "I'll just nod, I've never been so good at shaking hands\n I live on the frozen surface of a fireball\n Where cities come together to hate each other in the name of sport\nAmerica, nothing is ever just anything\nI looked up to you, but you thought I would look the other way\nAnd you hear what you want to hear\nAnd they take what they want to take\nDon't be sad, won't ever happen like this anymore",
-        points: 5
-      },
-      {
-        title: "Socratic views on the meaning of life",
-        author: "Pranav Nair",
-        body:
-          "I'll just nod, I've never been so good at shaking hands\n I live on the frozen surface of a fireball\n Where cities come together to hate each other in the name of sport\nAmerica, nothing is ever just anything\nI looked up to you, but you thought I would look the other way\nAnd you hear what you want to hear\nAnd they take what they want to take\nDon't be sad, won't ever happen like this anymore",
-        points: 520
-      },
-      {
-        title: "Socratic views on the meaning of life",
-        author: "Pranav Nair",
-        body:
-          "I'll just nod, I've never been so good at shaking hands\n I live on the frozen surface of a fireball\n Where cities come together to hate each other in the name of sport\nAmerica, nothing is ever just anything\nI looked up to you, but you thought I would look the other way\nAnd you hear what you want to hear\nAnd they take what they want to take\nDon't be sad, won't ever happen like this anymore",
-        points: -120
-      },
-      {
-        title: "Socratic views on the meaning of life",
-        author: "Pranav Nair",
-        body:
-          "I'll just nod, I've never been so good at shaking hands\n I live on the frozen surface of a fireball\n Where cities come together to hate each other in the name of sport\nAmerica, nothing is ever just anything\nI looked up to you, but you thought I would look the other way\nAnd you hear what you want to hear\nAnd they take what they want to take\nDon't be sad, won't ever happen like this anymore",
-        points: 1
       }
     ]
   };

@@ -2,7 +2,35 @@ import React, { Component } from "react";
 
 class Post extends Component {
   state = {};
+
+  circlesData = {
+    ETHICS: ["Ethics", "badge-success"],
+    SOPHISM: ["Sophism", "badge-danger"],
+    METAPHYSICS: ["Metaphysics", "badge-warning"],
+    RELIGION: ["Religion", "badge-info"],
+    MORTALITY: ["Mortality", "badge-dark"]
+  };
+
+  getCircleElements = function(circles) {
+    circlesElements = [];
+    tempStyle = "badge circle ";
+
+    for (let key in circlesData) {
+      if (circlesData.hasOwnProperty(key)) {
+        if (circles.includes(key)) {
+          tempStyle = tempStyle + circlesData[key][1];
+          circlesElements.push({
+            style: tempStyle,
+            tag: circlesData[key][0]
+          });
+        }
+      }
+    }
+  };
+
   render() {
+    circlesElements = this.getCircleElements(this.props.post.circles);
+
     return (
       <div className="card post view-component">
         <div className="card-body">
@@ -13,21 +41,11 @@ class Post extends Component {
           <p className="card-text">{this.props.data.body}</p>
           <div class="row">
             <div class="col-sm-9 circle-container">
-              <a href="#" class="badge badge-success circle">
-                Ethics
-              </a>
-              <a href="#" class="badge badge-danger circle">
-                Sophism
-              </a>
-              <a href="#" class="badge badge-warning circle">
-                Metaphysics
-              </a>
-              <a href="#" class="badge badge-info circle">
-                Religion
-              </a>
-              <a href="#" class="badge badge-dark circle">
-                Mortality
-              </a>
+              {circlesElements.map(circle => (
+                <a href="#" className={circle.style}>
+                  {circle.tag}
+                </a>
+              ))}
             </div>
             <div className="col-sm-3">
               <div className="post-points float-right">
