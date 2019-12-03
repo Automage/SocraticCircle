@@ -20,9 +20,31 @@ const db = mongoose.connection;
 db.on("error", error => console.error(error));
 db.once("open", () => console.log("connected to database"));
 
+// Passport config ----------------------------------------------------------------
+
+app.use(passport.initialize());
+require("./config/passport.js")(passport);
+
+// Misc.
+
+app.use(logger("dev"));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+//---------------------------------------------------------------------------------
+
 // Routing
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use("/", express.static("../frontend/the-socratic-circle/build"));
 app.use("/api", apiRouter);
 // Handle any other requests (could change to specify /login and /register)
@@ -32,6 +54,24 @@ app.get("*", (req, res) => {
     path.join(__dirname + "/../frontend/the-socratic-circle/build/index.html")
   );
 });
+
+// Catch 404 and forward to error handler ------------------------------------------
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
+});
+
+//---------------------------------------------------------------------------------
 
 app.listen(8000, () => console.log("Server started on port 8000..."));
 
