@@ -23,21 +23,30 @@ router.get("/posts/", (req, res) => {
 });
 
 router.get("/posts/:id", (req, res) => {
-  Post.findById(req.params.id, (err, post) => {
-    if (err) console.log(err);
-    if (post) {
-      res.send(post);
-    } else {
-      res.sendStatus(404);
+  Post.findOne({ _id: req.params.id }, (err, post) => {
+    if (err) {
+      console.log(err);
+      res.send("Failure");
     }
-  });
+    if (!post) res.sendStatus(404);
+  })
+    .populate({ path: "user", model: "User" })
+    .exec((err, post) => {
+      if (err) {
+        res.send("Failure");
+      } else {
+        res.send(post);
+        console.log(post.user);
+      }
+    });
 });
 
 router.post("/posts/", (req, res) => {
   // Date is added automatically
+  console.log(req.body);
   Post.insertMany({
     title: req.body.title,
-    userID: req.body.userID,
+    user: req.body.user,
     body: req.body.body,
     points: req.body.points
   })
@@ -98,7 +107,6 @@ router.get("/users/:id", (req, res) => {
 });
 
 router.post("/users/", (req, res) => {
-  console.log(req.body);
   User.insertMany({
     name: req.body.name,
     email: req.body.email,
