@@ -33,7 +33,8 @@ class Panel extends Component {
           loggedIn: true,
           user: jwt_decode(token, { header: true }),
           userData: response.data.userData,
-          msg: response.data.userData.name
+          msg:
+            response.data.userData.name + " | " + response.data.userData.points
         });
       } catch (error) {
         console.log(error);
