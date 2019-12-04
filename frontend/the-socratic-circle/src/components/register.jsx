@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Navbar from "./navbar";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -58,80 +59,83 @@ class Register extends Component {
       return <Redirect to="/login" />;
     }
     return (
-      <div className="container-fluid form-container">
-        <div className="card form view-component">
-          <h3 className="text-center">Create New Account</h3>
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label className="form-label">Username</label>
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                placeholder="Username"
-                value={this.state.name}
-                onChange={this.handleChange("name")}
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Email address</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                value={this.state.email}
-                onChange={this.handleChange("email")}
-              />
-              <small id="emailHelp" className="form-text text-muted">
-                We'll never share your email with anyone else.
-              </small>
-            </div>
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleChange("password")}
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Confirm Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password2"
-                placeholder="Password"
-                value={this.state.password2}
-                onChange={this.handleChange("password2")}
-              />
-            </div>
-            <div className="row">
-              <div className="col">
-                <button type="submit" className="btn btn-outline-primary">
-                  Create Account
-                </button>
+      <React.Fragment>
+        <Navbar />
+        <div className="container-fluid form-container">
+          <div className="card form view-component">
+            <h3 className="text-center">Create New Account</h3>
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label className="form-label">Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  placeholder="Username"
+                  value={this.state.name}
+                  onChange={this.handleChange("name")}
+                />
               </div>
-              <div className="col text-center">
-                <p className="text-right form-bottom-text">
-                  <Link className="form-bottom-text" to="/login">
-                    Login
-                  </Link>
-                </p>
+              <div className="form-group">
+                <label className="form-label">Email address</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter email"
+                  value={this.state.email}
+                  onChange={this.handleChange("email")}
+                />
+                <small id="emailHelp" className="form-text text-muted">
+                  We'll never share your email with anyone else.
+                </small>
               </div>
-            </div>
-          </form>
-          {this.state.error && (
-            <div class="alert alert-primary form-alert" role="alert">
-              {this.state.error}
-            </div>
-          )}
+              <div className="form-group">
+                <label className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Password"
+                  value={this.state.password}
+                  onChange={this.handleChange("password")}
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password2"
+                  placeholder="Password"
+                  value={this.state.password2}
+                  onChange={this.handleChange("password2")}
+                />
+              </div>
+              <div className="row">
+                <div className="col">
+                  <button type="submit" className="btn btn-outline-primary">
+                    Create Account
+                  </button>
+                </div>
+                <div className="col text-center">
+                  <p className="text-right form-bottom-text">
+                    <Link className="form-bottom-text" to="/login">
+                      Login
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </form>
+            {this.state.error && (
+              <div class="alert alert-primary form-alert" role="alert">
+                {this.state.error}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

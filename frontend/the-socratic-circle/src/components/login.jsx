@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Navbar from "./navbar";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
@@ -54,54 +55,57 @@ class Login extends Component {
     }
 
     return (
-      <div className="container-fluid form-container">
-        <div className="card form view-component">
-          <h3 className="text-center">Login</h3>
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label className="form-label">Email</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                value={this.state.email}
-                placeholder="Enter email"
-                onChange={this.handleChange("email")}
-              />
-            </div>
-            <div className="form-group">
-              <label className="form-label">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                value={this.state.password}
-                id="exampleInputPassword1"
-                placeholder="Password"
-                onChange={this.handleChange("password")}
-              />
-            </div>
-            <div className="row">
-              <div className="col">
-                <button type="submit" className="btn btn-outline-primary">
-                  Login
-                </button>
+      <React.Fragment>
+        <Navbar />
+        <div className="container-fluid form-container">
+          <div className="card form view-component">
+            <h3 className="text-center">Login</h3>
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label className="form-label">Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  value={this.state.email}
+                  placeholder="Enter email"
+                  onChange={this.handleChange("email")}
+                />
               </div>
-              <div className="col text-center">
-                <p className="text-right form-bottom-text">
-                  <Link className="form-bottom-text" to="/register">
-                    Create Account
-                  </Link>
-                </p>
+              <div className="form-group">
+                <label className="form-label">Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={this.state.password}
+                  id="exampleInputPassword1"
+                  placeholder="Password"
+                  onChange={this.handleChange("password")}
+                />
               </div>
-            </div>
-          </form>
-          {this.state.error && (
-            <div className="alert alert-primary form-alert" role="alert">
-              {this.state.error}
-            </div>
-          )}
+              <div className="row">
+                <div className="col">
+                  <button type="submit" className="btn btn-outline-primary">
+                    Login
+                  </button>
+                </div>
+                <div className="col text-center">
+                  <p className="text-right form-bottom-text">
+                    <Link className="form-bottom-text" to="/register">
+                      Create Account
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </form>
+            {this.state.error && (
+              <div className="alert alert-primary form-alert" role="alert">
+                {this.state.error}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
