@@ -53,17 +53,15 @@ router.post("/login", (req, res) => {
     .exec()
     .then(user => {
       // Check if user exists
-      console.log(user);
-      if (!user) {
+      console.log("user: " + user);
+      if (!user || user == null) {
         res.status(404).json({ emailnotfound: "Email not found" });
+        return;
       }
 
       // Check password
       bcrypt.compare(password, user.password, (err, isMatch) => {
-        console.log(password + " " + user.password);
-        if (err) res.send("Error");
-
-        console.log(isMatch);
+        console.log("password validation: " + (isMatch ? "invalid" : "valid"));
 
         if (isMatch) {
           console.log("ISMATCH");
@@ -101,6 +99,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/protected", (req, res, next) => {
+  //user is payload from jwt token
   passport.authenticate("jwt", { session: false }, (err, user, info) => {
     if (err) {
       res.status(400).json({ msg: "There was an error" });
@@ -111,10 +110,8 @@ router.get("/protected", (req, res, next) => {
       res.status(404).json({ msg: "Invalid token." });
     }
 
-    //User found, send a custom message
-    res.send({
-      msg: `Hi ${user.name}, welcome to the app!`
-    });
+    //User found, send json
+    res.send({ userData: user, msg: "authenticated" });
   })(req, res, next);
 });
 

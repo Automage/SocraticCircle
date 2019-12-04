@@ -44,7 +44,7 @@ class Login extends Component {
 
       this.setState({ loading: false, loggedIn: true });
     } catch (err) {
-      console.log(err);
+      console.log("Incorrect login: " + err);
       this.setState({ loading: false, error: "Login Failed" });
     }
   };

@@ -1,64 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
 
 class Navbar extends Component {
   state = {
     loading: true,
     user: null,
     loggedIn: false,
-    redirect: false
-  };
-
-  async componentDidMount() {
-    const token = localStorage.getItem("jwtToken");
-    console.log("TOKEN: " + token);
-    if (!token) {
-      this.setState({
-        loading: false,
-        loggedIn: false,
-        msg: ""
-      });
-    } else if (this.state.loading) {
-      try {
-        const response = await axios.get("/api/protected", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log(response.data);
-        this.setState({
-          loading: false,
-          loggedIn: true,
-          user: jwt_decode(token, { header: true }),
-          msg: response.data.msg
-        });
-      } catch (error) {
-        console.log(error);
-        this.setState({
-          loading: false,
-          loggedIn: true,
-          user: jwt_decode(token, { header: true }),
-          msg: "The protected route failed :( Check console for errors"
-        });
-      }
-    }
-  }
-
-  logout = e => {
-    if (this.state.loggedIn) {
-      e.preventDefault();
-      localStorage.removeItem("jwtToken");
-      this.setState({ loggedIn: false });
-    }
+    redirect: false,
+    userData: null,
+    msg: ""
   };
 
   render() {
-    console.log("MAINININININ");
-    console.log(this.state);
-    let loginMsg = "Login";
+    let loginButtonMsg = "Login";
     let loginLink = "/login";
-    if (this.state.loggedIn) {
-      loginMsg = "Logout";
+    if (this.props.loggedIn) {
+      loginButtonMsg = "Logout";
       loginLink = "/";
     }
 
@@ -90,16 +47,16 @@ class Navbar extends Component {
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0" />
 
           <form className="form-inline my-2 my-lg-0">
-            {this.state.loggedIn && (
-              <label className="h6 navbar-font">{this.state.msg}</label>
+            {this.props.loggedIn && (
+              <label className="h6 navbar-font">{this.props.loginMsg}</label>
             )}
             <Link to={loginLink}>
               <button
                 className="btn btn-outline-primary my-2 my-sm-1 ml-2 navbar-font"
                 type="submit"
-                onClick={this.logout}
+                onClick={this.props.onLogout}
               >
-                {loginMsg}
+                {loginButtonMsg}
               </button>
             </Link>
             <button
