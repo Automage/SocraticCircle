@@ -4,17 +4,21 @@ import axios from "axios";
 
 import Navbar from "./navbar";
 
-class NewPost extends Component {
+class Submit extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
       user: "",
       body: "",
-      circles: []
+      circle1: "-",
+      circle2: "-",
+      circle3: "-",
+      error: ""
     };
 
     this.circleNames = [
+      "-",
       "Ethics",
       "Sophism",
       "Metaphysics",
@@ -33,32 +37,33 @@ class NewPost extends Component {
     this.setState({ [name]: event.target.value });
   };
 
+  // Convert "-" circle to null
   handleSubmit = async event => {
     event.preventDefault();
     this.setState({ loading: true });
 
-    if (this.state.password != this.state.password2) {
-      this.setState({ loading: false, msg: "Passwords don't match" });
-    } else {
-      let userData = {
-        name: this.state.name,
-        email: this.state.email,
-        password: this.state.password
-      };
-      console.log(userData);
-      try {
-        const res = await axios.post("/api/register", userData);
+    // if (this.state.password != this.state.password2) {
+    //   this.setState({ loading: false, msg: "Passwords don't match" });
+    // } else {
+    //   let userData = {
+    //     name: this.state.name,
+    //     email: this.state.email,
+    //     password: this.state.password
+    //   };
+    //   console.log(userData);
+    //   try {
+    //     const res = await axios.post("/api/register", userData);
 
-        this.setState({ loading: false, msg: "Success" });
-      } catch (err) {
-        console.log(err);
-        this.setState({ loading: false, msg: "Registration Failed." });
-      }
-    }
+    //     this.setState({ loading: false, msg: "Success" });
+    //   } catch (err) {
+    //     console.log(err);
+    //     this.setState({ loading: false, msg: "Registration Failed." });
+    //   }
+    // }
   };
 
   render() {
-    console.log(this.props.location);
+    console.log(this.state);
     if (!this.props.location.state.loggedIn) {
       return <Redirect to="/login"></Redirect>;
     }
@@ -96,25 +101,40 @@ class NewPost extends Component {
               </div>
               <div className="form-select">
                 <label className="form-label">Circle 1</label>
-                <select className="form-control">
+                <select
+                  className="form-control"
+                  id="circle1"
+                  value={this.state.circle1}
+                  onChange={this.handleChange("circle1")}
+                >
                   {this.circleNames.map((name, i) => (
-                    <option>{name}</option>
+                    <option key={i}>{name}</option>
                   ))}
                 </select>
               </div>
               <div className="form-select">
                 <label className="form-label">Circle 2</label>
-                <select className="form-control">
+                <select
+                  className="form-control"
+                  id="circle2"
+                  value={this.state.circle2}
+                  onChange={this.handleChange("circle2")}
+                >
                   {this.circleNames.map((name, i) => (
-                    <option>{name}</option>
+                    <option key={i}>{name}</option>
                   ))}
                 </select>
               </div>
               <div className="form-select">
                 <label className="form-label">Circle 3</label>
-                <select className="form-control">
+                <select
+                  className="form-control"
+                  id="circle3"
+                  value={this.state.circle3}
+                  onChange={this.handleChange("circle3")}
+                >
                   {this.circleNames.map((name, i) => (
-                    <option>{name}</option>
+                    <option key={i}>{name}</option>
                   ))}
                 </select>
               </div>
@@ -145,4 +165,4 @@ class NewPost extends Component {
   }
 }
 
-export default withRouter(NewPost);
+export default withRouter(Submit);

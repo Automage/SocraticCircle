@@ -45,7 +45,7 @@ app.use(function(req, res, next) {
 // Routing
 
 app.use(express.json());
-// app.use("/", express.static("../frontend/the-socratic-circle/build"));
+app.use("/", express.static("../frontend/the-socratic-circle/build"));
 app.use("/api", apiRouter);
 // Handle any other requests (could change to specify /login and /register)
 // For now there is only a single point of entry - index.html
