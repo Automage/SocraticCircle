@@ -45,15 +45,15 @@ class Post extends Component {
             {this.props.data.user}
           </h6>
           <p className="card-text">{this.props.data.body}</p>
-          <div className="row">
-            <div className="col-sm-9 circle-container">
+          <div className="d-flex justify-content-between">
+            <div className="circle-container">
               {circlesElements.map((circle, i) => (
                 <Link to="/home" className={circle.style} key={i}>
                   {circle.tag}
                 </Link>
               ))}
             </div>
-            <div className="col-sm-3">
+            <div className="">
               <div className="post-points float-right">
                 {this.props.data.points}
               </div>

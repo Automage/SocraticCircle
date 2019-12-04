@@ -80,8 +80,6 @@
   display: inline-block;
   text-align: center;
   font-size: 11pt;
-
-  margin-top: 10px;
 }
 
 .circle {
@@ -104,10 +102,6 @@
     display: inline-block;
     text-align: center;
     font-size: 11pt;
-
-    position: absolute;
-    bottom: 0;
-    right: 15px;
   }
 
   .form-container {
