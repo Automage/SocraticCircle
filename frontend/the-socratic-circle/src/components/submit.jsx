@@ -1,28 +1,31 @@
 import React, { Component } from "react";
-import Navbar from "./navbar";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect, Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
-class Register extends Component {
-  state = {
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-    loading: false,
-    error: ""
-  };
+import Navbar from "./navbar";
+
+class NewPost extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "",
+      user: "",
+      body: "",
+      circles: []
+    };
+
+    this.circleNames = [
+      "Ethics",
+      "Sophism",
+      "Metaphysics",
+      "Religion",
+      "Mortality"
+    ];
+  }
 
   componentDidMount() {
-    let token = localStorage.getItem("jwtToken");
-    if (token) {
-      console.log("token", token);
-      console.log(token);
-      const decoded = jwt_decode(token);
-      if (decoded) {
-        this.setState({ loggedIn: true });
-      }
+    if (this.props.location.state.loggedIn) {
+      this.setState({ user: this.props.location.state.userData.name });
     }
   }
 
@@ -55,73 +58,76 @@ class Register extends Component {
   };
 
   render() {
-    if (this.state.msg == "Success") {
-      return <Redirect to="/login" />;
+    console.log(this.props.location);
+    if (!this.props.location.state.loggedIn) {
+      return <Redirect to="/login"></Redirect>;
     }
     return (
       <React.Fragment>
         <Navbar />
         <div className="container-fluid form-container">
           <div className="card form view-component">
-            <h3 className="text-center">Create New Account</h3>
+            <h3 className="text-center">Submit Post</h3>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
-                <label className="form-label">Username</label>
+                <label className="form-label">Title</label>
                 <input
                   type="text"
                   className="form-control"
                   id="name"
-                  placeholder="Username"
-                  value={this.state.name}
-                  onChange={this.handleChange("name")}
+                  placeholder="Title"
+                  value={this.state.title}
+                  onChange={this.handleChange("title")}
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">Email address</label>
-                <input
-                  type="email"
+                <label className="form-label">Text</label>
+                <textarea
                   className="form-control"
                   id="email"
-                  placeholder="Enter email"
-                  value={this.state.email}
-                  onChange={this.handleChange("email")}
+                  rows="10"
+                  placeholder="Enter text"
+                  value={this.state.body}
+                  onChange={this.handleChange("body")}
                 />
                 <small id="emailHelp" className="form-text text-muted">
-                  We'll never share your email with anyone else.
+                  (Optional)
                 </small>
               </div>
-              <div className="form-group">
-                <label className="form-label">Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.handleChange("password")}
-                />
+              <div className="form-select">
+                <label className="form-label">Circle 1</label>
+                <select className="form-control">
+                  {this.circleNames.map((name, i) => (
+                    <option>{name}</option>
+                  ))}
+                </select>
               </div>
-              <div className="form-group">
-                <label className="form-label">Confirm Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="password2"
-                  placeholder="Password"
-                  value={this.state.password2}
-                  onChange={this.handleChange("password2")}
-                />
+              <div className="form-select">
+                <label className="form-label">Circle 2</label>
+                <select className="form-control">
+                  {this.circleNames.map((name, i) => (
+                    <option>{name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-select">
+                <label className="form-label">Circle 3</label>
+                <select className="form-control">
+                  {this.circleNames.map((name, i) => (
+                    <option>{name}</option>
+                  ))}
+                </select>
               </div>
               <div className="row">
                 <div className="col">
                   <button type="submit" className="btn btn-outline-primary">
-                    Create Account
+                    Submit
                   </button>
                 </div>
                 <div className="col text-center">
                   <p className="text-right form-bottom-text">
-                    <Link className="form-bottom-text" to="/login">
-                      Login
+                    <Link className="form-bottom-text" to="/">
+                      Discard
                     </Link>
                   </p>
                 </div>
@@ -139,4 +145,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withRouter(NewPost);

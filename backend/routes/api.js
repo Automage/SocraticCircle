@@ -151,8 +151,7 @@ router.post("/posts/", (req, res) => {
       title: req.body.title,
       user: req.body.user,
       body: req.body.body,
-      circles: req.body.circles,
-      points: req.body.points
+      circles: req.body.circles
     },
     err => {
       if (err) res.send("Failure");
@@ -191,7 +190,11 @@ router.delete("/posts/:id", (req, res) => {
   });
 });
 
-// User data routes
+// TODO: Returns a list of circle names
+// router.get("/circles", (req, res) => {
+// });
+
+// User data routes ---------------------------------------------------------------
 
 // Get all users
 router.get("/users/", async (req, res) => {

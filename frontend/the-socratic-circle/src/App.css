@@ -62,6 +62,10 @@
   margin-bottom: -5px;
 }
 
+.form-select {
+  margin-bottom: 15px;
+}
+
 .post {
   border-radius: 10px;
 }

@@ -6,16 +6,20 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Panel from "./components/panel";
 import Login from "./components/login";
 import Register from "./components/register";
+import Submit from "./components/submit";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">
+        <Route path="/login" component={Login}>
           <Login />
         </Route>
-        <Route path="/register">
+        <Route path="/register" component={Register}>
           <Register />
+        </Route>
+        <Route path="/submit" component={Submit}>
+          <Submit />
         </Route>
         <Route path="/">
           <Panel />

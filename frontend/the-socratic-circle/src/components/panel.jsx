@@ -63,7 +63,7 @@ class Panel extends Component {
         <Navbar
           onLogout={this.logout}
           loggedIn={this.state.loggedIn}
-          loginMsg={this.state.msg}
+          userData={this.state.userData}
         />
         <div className="container-fluid panel">
           <div className="row">
