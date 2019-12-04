@@ -49,7 +49,6 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.state);
     if (this.state.loggedIn === true) {
       return <Redirect to="/" />;
     }
@@ -97,7 +96,7 @@ class Login extends Component {
             </div>
           </form>
           {this.state.error && (
-            <div class="alert alert-primary form-alert" role="alert">
+            <div className="alert alert-primary form-alert" role="alert">
               {this.state.error}
             </div>
           )}

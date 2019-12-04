@@ -4,6 +4,7 @@ import TrendingTab from "./trending-tab/trendingTab";
 
 class Panel extends Component {
   state = {};
+
   render() {
     return (
       <div className="container-fluid panel">

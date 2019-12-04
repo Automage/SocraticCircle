@@ -59,49 +59,63 @@ router.post("/login", (req, res) => {
       }
 
       // Check password
-      bcrypt
-        .compare(password, user.password, err => {
-          console.log(password + " " + user.password);
-          if (err) res.send("Error");
-        })
-        .then(isMatch => {
-          console.log(isMatch);
-          if (isMatch) {
-            console.log("ISMATCH");
-            // User matched
-            // Create JWT Payload
-            const payload = {
-              id: user.id,
-              name: user.name,
-              email: user.email
-            };
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        console.log(password + " " + user.password);
+        if (err) res.send("Error");
 
-            // Sign token
-            jwt.sign(
-              payload,
-              process.env.SECRET,
-              {
-                expiresIn: 31556926 // 1 year in seconds
-              },
-              (err, token) => {
-                res.json({
-                  success: true,
-                  token: token
-                });
-              }
-            );
-          } else {
-            res.status(400).json({ passwordincorrect: "Password incorrect" });
-          }
-        })
-        .catch(err => {
-          res.send("Error");
-        });
+        console.log(isMatch);
+
+        if (isMatch) {
+          console.log("ISMATCH");
+          // User matched
+          // Create JWT Payload
+          const payload = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+          };
+
+          // Sign token
+          jwt.sign(
+            payload,
+            process.env.SECRET,
+            {
+              expiresIn: 31556926 // 1 year in seconds
+            },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: token
+              });
+            }
+          );
+        } else {
+          res.status(400).json({ passwordincorrect: "Password incorrect" });
+        }
+      });
     })
     .catch(err => {
       console.log(err);
       res.send("Error");
     });
+});
+
+router.get("/protected", (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    if (err) {
+      res.status(400).json({ msg: "There was an error" });
+      console.log(err);
+    }
+
+    if (!user) {
+      res.status(404).json({ msg: "Invalid token." });
+    }
+
+    //User found, send a custom message
+    res.send({
+      msg: `Hi ${user.name}, welcome to the app!`
+    });
+  })(req, res, next);
 });
 
 //-----------------------------------------------------------------------------------------

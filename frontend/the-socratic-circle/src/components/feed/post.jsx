@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class Post extends Component {
   constructor(props) {
@@ -47,9 +48,9 @@ class Post extends Component {
           <div className="row">
             <div className="col-sm-9 circle-container">
               {circlesElements.map((circle, i) => (
-                <a href="#" className={circle.style} key={i}>
+                <Link to="/home" className={circle.style} key={i}>
                   {circle.tag}
-                </a>
+                </Link>
               ))}
             </div>
             <div className="col-sm-3">

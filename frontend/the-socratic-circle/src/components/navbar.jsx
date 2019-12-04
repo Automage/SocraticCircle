@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 class Navbar extends Component {
   state = {
     loading: true,
     user: null,
-    loggedIn: false
+    loggedIn: false,
+    redirect: false
   };
 
   async componentDidMount() {
@@ -15,22 +17,28 @@ class Navbar extends Component {
     if (!token) {
       this.setState({
         loading: false,
-        loggedIn: false
+        loggedIn: false,
+        msg: ""
       });
-      return;
     } else if (this.state.loading) {
       try {
+        const response = await axios.get("/api/protected", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        console.log(response.data);
         this.setState({
           loading: false,
           loggedIn: true,
-          user: jwt_decode(token, { header: true })
+          user: jwt_decode(token, { header: true }),
+          msg: response.data.msg
         });
       } catch (error) {
         console.log(error);
         this.setState({
           loading: false,
           loggedIn: true,
-          user: jwt_decode(token, { header: true })
+          user: jwt_decode(token, { header: true }),
+          msg: "The protected route failed :( Check console for errors"
         });
       }
     }
@@ -45,6 +53,7 @@ class Navbar extends Component {
   };
 
   render() {
+    console.log("MAINININININ");
     console.log(this.state);
     let loginMsg = "Login";
     let loginLink = "/login";
@@ -55,7 +64,7 @@ class Navbar extends Component {
 
     return (
       <nav className="navbar navbar-expand-md fixed-top navbar-light view-component">
-        <Link to="/#">
+        <Link to="/">
           <p
             className="navbar-brand mb-0 navbar-font h1"
             id="navbar-title"
@@ -82,7 +91,7 @@ class Navbar extends Component {
 
           <form className="form-inline my-2 my-lg-0">
             {this.state.loggedIn && (
-              <label className="h6 navbar-font">{this.state.user}</label>
+              <label className="h6 navbar-font">{this.state.msg}</label>
             )}
             <Link to={loginLink}>
               <button

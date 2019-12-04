@@ -38,6 +38,7 @@ class Feed extends Component {
       }
     ]
   };
+
   render() {
     //   TODO: when re-adding TrendingTab, use colo-lg-9
     return (
