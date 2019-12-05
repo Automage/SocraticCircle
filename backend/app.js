@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const path = require("path");
 
 const createError = require("http-errors");
@@ -45,13 +44,13 @@ app.use(function(req, res, next) {
 // Routing
 
 app.use(express.json());
-app.use("/", express.static("../frontend/the-socratic-circle/build"));
+app.use("/", express.static("./frontend/the-socratic-circle/build"));
 app.use("/api", apiRouter);
 // Handle any other requests (could change to specify /login and /register)
 // For now there is only a single point of entry - index.html
 app.get("*", (req, res) => {
   res.sendFile(
-    path.join(__dirname + "/../frontend/the-socratic-circle/build/index.html")
+    path.join(__dirname + "/frontend/the-socratic-circle/build/index.html")
   );
 });
 
@@ -72,6 +71,8 @@ app.use(function(err, req, res, next) {
 
 //---------------------------------------------------------------------------------
 
-app.listen(8000, () => console.log("Server started on port 8000..."));
+app.listen(process.env.PORT, () =>
+  console.log("Server started on port " + process.env.PORT + "...")
+);
 
 module.exports = app;
