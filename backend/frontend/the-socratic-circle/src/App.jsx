@@ -10,22 +10,30 @@ import Submit from "./components/submit";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login}>
-          <Login />
-        </Route>
-        <Route path="/register" component={Register}>
-          <Register />
-        </Route>
-        <Route path="/submit" component={Submit}>
-          <Submit />
-        </Route>
-        <Route path="/">
-          <Panel />
-        </Route>
-      </Switch>
-    </Router>
+    <React.Fragment>
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login}>
+            <Login />
+          </Route>
+          <Route path="/register" component={Register}>
+            <Register />
+          </Route>
+          <Route path="/submit" component={Submit}>
+            <Submit />
+          </Route>
+          <Route path="/">
+            <Panel />
+          </Route>
+        </Switch>
+      </Router>
+      <footer class="page-footer font-small blue">
+        <div class="footer-copyright text-center py-3">
+          Development Build:
+          <a href="https://github.com/Automage/SocraticCircle"> Source Code</a>
+        </div>
+      </footer>
+    </React.Fragment>
   );
 }
 
